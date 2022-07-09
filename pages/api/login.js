@@ -20,13 +20,14 @@ export default async (req, res)=>{
                     path:'/',
                     httpOnly: true,
                     sameSite:'strict',
-                    maxAge:300
+                    maxAge:1800
                     
                 }
             )).json({
                 'username':data['user']['username'],
                 'email':data['user']['email'],
-                'role':data['user']['role']
+                'role':data['user']['role'],
+                'jwt':jwt
             })
         } else {
            

@@ -14,6 +14,7 @@ const Header = () => {
         console.log("Calling USER");
         setUser(user);
       } catch (error) {
+        // if error: set user to null, destroy the cookie
         setUser(null);
       }
     })();
@@ -28,7 +29,6 @@ const Header = () => {
             FARM Cars
             {user ? (
               <span>
-                {" "}
                 {user.username} ({user.role})
               </span>
             ) : (
