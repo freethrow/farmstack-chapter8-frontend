@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
+import useAuth from "../../hooks/useAuth";
 
 const login = () => {
   const [email, setEmail] = useState("marko@gmail.com");
   const [password, setPassword] = useState("marko");
   const [error, setError] = useState(null);
 
+  const { setUser } = useAuth();
+
+  const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
     // call the API route
@@ -14,7 +19,9 @@ const login = () => {
       body: JSON.stringify({ email, password }),
     });
     if (res.ok) {
-      const data = await res.json();
+      const user = await res.json();
+      setUser(user);
+      router.push("/");
     } else {
       const errData = await res.json();
       console.log(errData);

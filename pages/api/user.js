@@ -1,3 +1,4 @@
+
 export default async (req, res)=>{
     if (req.method==='GET'){
         const {jwt} = req.cookies;
