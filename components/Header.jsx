@@ -7,7 +7,7 @@ const Header = () => {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const userData = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`);
+      const userData = await fetch("/api/user");
       try {
         const user = await userData.json();
 
