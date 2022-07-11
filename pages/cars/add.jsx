@@ -10,7 +10,7 @@ export const getServerSideProps = ({ req, res }) => {
   return { props: { jwt } };
 };
 
-const add = ({ jwt }) => {
+const Add = ({ jwt }) => {
   // controlled inputs
   const [brand, setBrand] = useState("");
   const [make, setMake] = useState("");
@@ -182,4 +182,4 @@ const add = ({ jwt }) => {
   );
 };
 
-export default add;
+export default Add;

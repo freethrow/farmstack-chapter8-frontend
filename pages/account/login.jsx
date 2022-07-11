@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import useAuth from "../../hooks/useAuth";
 
-const login = () => {
+const Login = () => {
   const [email, setEmail] = useState("marko@gmail.com");
   const [password, setPassword] = useState("marko");
   const [error, setError] = useState(null);
@@ -72,4 +72,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
