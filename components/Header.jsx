@@ -18,7 +18,7 @@ const Header = () => {
       }
     })();
     setLoading(false);
-  });
+  }, []);
   return (
     <div className=" text-orange-600 py-2 font-bold flex flex-row justify-between items-center">
       <div>
