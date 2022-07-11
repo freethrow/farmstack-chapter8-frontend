@@ -3,12 +3,11 @@ import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
 
 const Header = () => {
-  const { user, setUser, authError, setAuthError, setLoading, loading } =
-    useAuth();
+  const { user, setUser, setLoading, loading } = useAuth();
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const userData = await fetch("/api/user");
+      const userData = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`);
       try {
         const user = await userData.json();
         console.log("Calling USER");
