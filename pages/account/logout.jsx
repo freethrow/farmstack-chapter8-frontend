@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 const Logout = () => {
   const { user, setUser } = useAuth();
   const removeCookie = async () => {
-    const res = await fetch("`${process.env.NEXT_PUBLIC_URL}/logout`", {
+    const res = await fetch("api/logout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });

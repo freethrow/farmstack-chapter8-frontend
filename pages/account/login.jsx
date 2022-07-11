@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     // call the API route
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/login`, {
+    const res = await fetch("api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
