@@ -53,6 +53,7 @@ const Add = ({ jwt }) => {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `bearer ${jwt}`,
+          "Access-Control-Allow-Origin": "*",
         },
       });
     } catch (error) {
