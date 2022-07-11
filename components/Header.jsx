@@ -28,7 +28,7 @@ const Header = () => {
           <a>
             FARM Cars
             {user ? (
-              <span>
+              <span className="mx-2 text-gray-500">
                 {user.username} ({user.role})
               </span>
             ) : (

@@ -1,24 +1,30 @@
-import React from "react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
-import useAuth from "../../hooks/useAuth";
 
-const add = () => {
+import { useRouter } from "next/router";
+
+import { getCookie } from "cookies-next";
+
+export const getServerSideProps = ({ req, res }) => {
+  const jwt = getCookie("jwt", { req, res });
+  return { props: { jwt } };
+};
+
+const add = ({ jwt }) => {
   // controlled inputs
-  const [brand, setBrand] = useState("Fiat");
-  const [make, setMake] = useState("Stilo");
-  const [year, setYear] = useState(2006);
-  const [cm3, setCm3] = useState(1600);
-  const [price, setPrice] = useState(20000);
-  const [km, setKm] = useState(2839999);
+  const [brand, setBrand] = useState("");
+  const [make, setMake] = useState("");
+  const [year, setYear] = useState("");
+  const [cm3, setCm3] = useState("");
+  const [price, setPrice] = useState("");
+  const [km, setKm] = useState("");
   const [picture, setPicture] = useState(null);
 
   // loader
   const [loading, setLoading] = useState(false);
 
   // get the user
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   // router
   const router = useRouter();
@@ -41,12 +47,12 @@ const add = () => {
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:8000/cars/",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/cars/`,
         data: formData,
 
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `bearer ${user.jwt}`,
+          Authorization: `bearer ${jwt}`,
         },
       });
     } catch (error) {
@@ -58,106 +64,120 @@ const add = () => {
   };
 
   return (
-    <div>
-      <h2>Add new car</h2>
+    <div className="flex flex-col justify-center items-center h-full">
+      <div className=" shadow-lg p-5">
+        <h2 className=" text-orange-600 font-bold text-xl text-center my-3">
+          Add new car
+        </h2>
 
-      {user && !loading ? (
-        <form
-          className=" max-w-md flex flex-col justify-center items-center"
-          onSubmit={handleSubmit}
-        >
-          <label className="block">
-            <span className="text-gray-700">Brand</span>
-            <input
-              name="brand"
-              id="brand"
-              type="text"
-              className="mt-1 block w-full"
-              placeholder="car brand"
-              required
-              onChange={(e) => setBrand(e.target.value)}
-              value={brand}
-            />
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Make</span>
-            <input
-              name="make"
-              id="id"
-              type="text"
-              required
-              className="mt-1 block w-full"
-              onChange={(e) => setMake(e.target.value)}
-              value={make}
-            />
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Year</span>
-            <input
-              name="year"
-              id="year"
-              type="number"
-              required
-              className="mt-1 block w-full"
-              onChange={(e) => setYear(e.target.value)}
-              value={year}
-            />
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Cm3</span>
-            <input
-              name="cm3"
-              id="cm3"
-              type="number"
-              required
-              className="mt-1 block w-full"
-              onChange={(e) => setCm3(e.target.value)}
-              value={cm3}
-            />
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Price</span>
-            <input
-              type="number"
-              name="price"
-              id="price"
-              required
-              className="mt-1 block w-full"
-              onChange={(e) => setPrice(e.target.value)}
-              value={price}
-            />
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Km</span>
-            <input
-              name="km"
-              id="km"
-              type="number"
-              required
-              className="mt-1 block w-full"
-              onChange={(e) => setKm(e.target.value)}
-              value={km}
-            />
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Picture</span>
-            <input
-              name="picture"
-              id="picture"
-              type="file"
-              className="mt-1 block w-full"
-              onChange={(e) => setPicture(e.target.files[0])}
-              required
-            />
-          </label>
-          <button className="bg-orange-500 text-white p-2 m-3 w-full rounded-lg ">
-            Submit
-          </button>
-        </form>
-      ) : (
-        <div>Loading...</div>
-      )}
-      {loading && <div>Inserting new car</div>}
+        {!loading ? (
+          <form
+            className=" max-w-lg flex flex-col justify-center items-center"
+            onSubmit={handleSubmit}
+          >
+            <label className="block">
+              <span className="text-gray-700">Brand</span>
+              <input
+                name="brand"
+                id="brand"
+                type="text"
+                className="mt-1 block w-full"
+                placeholder="car brand"
+                required
+                onChange={(e) => setBrand(e.target.value)}
+                value={brand}
+              />
+            </label>
+            <label className="block">
+              <span className="text-gray-700">Make</span>
+              <input
+                name="make"
+                id="id"
+                type="text"
+                required
+                className="mt-1 block w-full"
+                placeholder="car make"
+                onChange={(e) => setMake(e.target.value)}
+                value={make}
+              />
+            </label>
+            <label className="block">
+              <span className="text-gray-700">Year</span>
+              <input
+                name="year"
+                id="year"
+                type="number"
+                placeholder="production year"
+                required
+                className="mt-1 block w-full"
+                onChange={(e) => setYear(e.target.value)}
+                value={year}
+              />
+            </label>
+            <label className="block">
+              <span className="text-gray-700">Cm3</span>
+              <input
+                name="cm3"
+                id="cm3"
+                type="number"
+                placeholder="Cm3"
+                required
+                className="mt-1 block w-full"
+                onChange={(e) => setCm3(e.target.value)}
+                value={cm3}
+              />
+            </label>
+            <label className="block">
+              <span className="text-gray-700">Price</span>
+              <input
+                type="number"
+                name="price"
+                placeholder="price in EUR"
+                id="price"
+                required
+                className="mt-1 block w-full"
+                onChange={(e) => setPrice(e.target.value)}
+                value={price}
+              />
+            </label>
+            <label className="block">
+              <span className="text-gray-700">Km</span>
+              <input
+                name="km"
+                id="km"
+                type="number"
+                placeholder="Km"
+                required
+                className="mt-1 block w-full"
+                onChange={(e) => setKm(e.target.value)}
+                value={km}
+              />
+            </label>
+            <label className="block">
+              <span className="text-gray-700">Picture</span>
+              <input
+                name="picture"
+                id="picture"
+                type="file"
+                placeholder="Picture file"
+                className="mt-1 block w-full"
+                onChange={(e) => setPicture(e.target.files[0])}
+                required
+              />
+            </label>
+            <button className="bg-orange-500 text-white p-2 m-3 w-full rounded-lg ">
+              Submit
+            </button>
+          </form>
+        ) : (
+          <></>
+        )}
+        {loading && (
+          <div className=" bg-orange-600 w-full min-h-full text-white flex flex-col justify-center items-center">
+            <p className=" text-xl">Inserting new car</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

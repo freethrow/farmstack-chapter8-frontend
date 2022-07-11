@@ -5,7 +5,7 @@ export default async (req, res)=>{
 
         const {email, password} = req.body
 
-        const result = await fetch('http://127.0.0.1:8000/users/login', {
+        const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({email, password})
@@ -26,8 +26,7 @@ export default async (req, res)=>{
             )).json({
                 'username':data['user']['username'],
                 'email':data['user']['email'],
-                'role':data['user']['role'],
-                'jwt':jwt
+                'role':data['user']['role']
             })
         } else {
            
