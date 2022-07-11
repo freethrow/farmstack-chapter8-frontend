@@ -10,7 +10,7 @@ const Header = () => {
       const userData = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`);
       try {
         const user = await userData.json();
-        console.log("Calling USER");
+
         setUser(user);
       } catch (error) {
         // if error: set user to null, destroy the cookie

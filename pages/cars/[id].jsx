@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export const getStaticPaths = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/`);
   const cars = await res.json();
