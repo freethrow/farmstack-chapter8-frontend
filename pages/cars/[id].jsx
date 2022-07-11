@@ -1,10 +1,14 @@
 export const getStaticPaths = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/`);
-  const cars = await res.json();
+  try {
+    const cars = await res.json();
 
-  const paths = cars.map((car) => ({
-    params: { id: car._id },
-  }));
+    const paths = cars.map((car) => ({
+      params: { id: car._id },
+    }));
+  } catch (error) {
+    console.log(error);
+  }
 
   return { paths, fallback: false };
 };
