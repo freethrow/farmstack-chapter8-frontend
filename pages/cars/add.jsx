@@ -47,7 +47,7 @@ const Add = ({ jwt }) => {
     try {
       const response = await axios({
         method: "post",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/cars/`,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/cars`,
         data: formData,
 
         headers: {
@@ -58,6 +58,8 @@ const Add = ({ jwt }) => {
     } catch (error) {
       console.log("ERROR:", error);
     }
+
+    console.log("RESPONSE", response);
 
     setLoading(false);
     router.push("/cars");
