@@ -6,7 +6,7 @@ export const getStaticPaths = async () => {
     params: { id: car._id },
   }));
 
-  return { paths, fallback: false, revalidate: 10 };
+  return { paths, fallback: blocking, revalidate: 10 };
 };
 
 export const getStaticProps = async ({ params: { id } }) => {
