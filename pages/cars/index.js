@@ -10,7 +10,7 @@ export const getServerSideProps = async () => {
   return {
     props: {
       cars,
-      revalidate: 5,
+      revalidate: 10,
     },
   };
 };
