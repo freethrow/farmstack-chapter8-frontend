@@ -67,6 +67,7 @@ const Add = ({ jwt }) => {
           Authorization: `bearer ${jwt}`,
         },
       });
+      console.log(response);
     } catch (error) {
       console.log("ERROR:", error);
     }
