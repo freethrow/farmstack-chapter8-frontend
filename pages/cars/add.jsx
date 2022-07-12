@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { useRouter } from "next/router";
 
+// import useAuth from "../../hooks/useAuth";
+
 import { getCookie } from "cookies-next";
 
 export const getServerSideProps = ({ req, res }) => {
@@ -12,12 +14,12 @@ export const getServerSideProps = ({ req, res }) => {
 
 const Add = ({ jwt }) => {
   // controlled inputs
-  const [brand, setBrand] = useState("");
-  const [make, setMake] = useState("");
-  const [year, setYear] = useState("");
-  const [cm3, setCm3] = useState("");
-  const [price, setPrice] = useState("");
-  const [km, setKm] = useState("");
+  const [brand, setBrand] = useState("Fiat");
+  const [make, setMake] = useState("Stilo");
+  const [year, setYear] = useState("2006");
+  const [cm3, setCm3] = useState("1600");
+  const [price, setPrice] = useState("2000");
+  const [km, setKm] = useState("166000");
   const [picture, setPicture] = useState(null);
 
   // loader
@@ -25,7 +27,7 @@ const Add = ({ jwt }) => {
 
   // get the user
   // const { user } = useAuth();
-
+  // const jwt = user["jwt"];
   // router
   const router = useRouter();
 
@@ -45,9 +47,19 @@ const Add = ({ jwt }) => {
     setLoading(true);
 
     try {
+      // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/`, {
+      //   method: "POST",
+      //   data: formData,
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "multipart/form-data",
+      //     Authorization: `bearer ${jwt}`,
+      //   },
+      // });
+
       const response = await axios({
-        method: "post",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/cars`,
+        method: "POST",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/cars/`,
         data: formData,
 
         headers: {
@@ -58,8 +70,6 @@ const Add = ({ jwt }) => {
     } catch (error) {
       console.log("ERROR:", error);
     }
-
-    console.log("RESPONSE", response);
 
     setLoading(false);
     router.push("/cars");

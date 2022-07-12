@@ -3,9 +3,8 @@ import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
 
 const Header = () => {
-  const { user, setUser, setLoading, loading } = useAuth();
+  const { user, setUser, loading, setLoading } = useAuth();
   useEffect(() => {
-    setLoading(true);
     (async () => {
       const userData = await fetch("/api/user");
       try {
@@ -17,7 +16,6 @@ const Header = () => {
         setUser(null);
       }
     })();
-    setLoading(false);
   }, []);
   return (
     <div className=" text-orange-600 py-2 font-bold flex flex-row justify-between items-center">

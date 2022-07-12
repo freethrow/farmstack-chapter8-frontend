@@ -2,7 +2,7 @@ import Card from "../../components/Card"
 
 export const getServerSideProps = async () => {
 
-  console.log()
+
  
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cars/`);
   const cars = await res.json();

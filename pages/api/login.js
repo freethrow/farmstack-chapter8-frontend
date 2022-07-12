@@ -26,7 +26,8 @@ export default async (req, res)=>{
             )).json({
                 'username':data['user']['username'],
                 'email':data['user']['email'],
-                'role':data['user']['role']
+                'role':data['user']['role'],
+                'jwt':jwt
             })
         } else {
            
